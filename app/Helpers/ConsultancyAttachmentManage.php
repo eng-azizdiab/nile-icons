@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Attachment;
+use App\Models\Attachment;
 use App\Interfaces\AttachmentsManagerInterface;
 use App\Traits\AttachmentsManager;
 use Illuminate\Http\File;

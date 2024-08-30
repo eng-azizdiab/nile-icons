@@ -30,8 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix'=>'public'],function (){
     Route::get('all-articles',[FrontEndController::class,'index']);
     Route::get('all-categories',[FrontEndController::class,'all_categories']);
-    Route::get('get-logos',[AttachmentsController::class,'get_logos']);
-    Route::get('get-slider1',[AttachmentsController::class,'get_slider1']);
+    Route::get('get-partner',[AttachmentsController::class, 'get_partner']);
+    Route::get('get-reference',[AttachmentsController::class, 'get_reference']);
     Route::get('get-slider2',[AttachmentsController::class,'get_slider2']);
     Route::post('new-visitor',[FrontEndController::class,'new_visitor']);
     Route::post('contact-us',[FrontEndController::class,'sendContactEmail']);
@@ -46,10 +46,12 @@ Route::group(['prefix'=>'admin'],function (){
     //Authenticated Admin Routes
     Route::group(['middleware'=>['auth:sanctum']],function (){
         Route::post('logout',[UserAuthController::class,'logout']);
-        Route::post('upload-logos',[AttachmentsController::class,'upload_logos']);
-        Route::get('get-logos',[AttachmentsController::class,'get_logos']);
-        Route::post('upload-slider1',[AttachmentsController::class,'upload_slider1']);
-        Route::get('get-slider1',[AttachmentsController::class,'get_slider1']);
+        Route::post('upload-partner',[AttachmentsController::class, 'store_partner']);
+        Route::get('get-partner',[AttachmentsController::class, 'get_partner']);
+        Route::get('delete-partner/{id}',[AttachmentsController::class, 'delete_partner']);
+        Route::post('upload-reference',[AttachmentsController::class, 'store_reference']);
+        Route::get('get-reference',[AttachmentsController::class, 'get_reference']);
+        Route::get('delete-reference/{id}',[AttachmentsController::class, 'delete_reference']);
         Route::post('upload-slider2',[AttachmentsController::class,'upload_slider2']);
         Route::get('get-slider2',[AttachmentsController::class,'get_slider2']);
         Route::get('get-counts',[DashboardController::class,'index']);

@@ -58,14 +58,4 @@ trait AttachmentsManager
         $imageName = $this->upload($format, $image);
         return $imageName;
     }
-    public  function deleteAttachment(
-        $old_image = null,
-    ) {
-        if (!empty($old_image) && Storage::disk('public')->exists($this->directory() . $old_image)) {
-            Storage::disk('public')->delete($this->directory() . $old_image);
-            return true;
-        }
-
-        return false;
-    }
 }
