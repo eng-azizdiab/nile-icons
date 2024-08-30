@@ -9,5 +9,5 @@ class ContactUS extends Model
 {
     use HasFactory;
     protected $table='contact_us';
-    protected $fillable=['name','email','notes','phone'];
+    protected $fillable=['name','email','notes','phone','seen'];
 }

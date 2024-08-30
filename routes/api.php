@@ -56,6 +56,7 @@ Route::group(['prefix'=>'admin'],function (){
         Route::get('get-slider2',[AttachmentsController::class,'get_slider2']);
         Route::get('get-counts',[DashboardController::class,'index']);
         Route::get('messages',[DashboardController::class,'contactUsMessages']);
+        Route::get('messages/{id}',[DashboardController::class,'contactUsMessagesSeen']);
         Route::post('add-admin',[AuthController::class,'register']);
         Route::post('change-password',[AuthController::class,'change_password']);
         Route::get('all-admins',[AuthController::class,'all_admins']);

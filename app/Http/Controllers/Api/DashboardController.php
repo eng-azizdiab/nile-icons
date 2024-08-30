@@ -43,6 +43,24 @@ class DashboardController extends Controller
             'data'=>$messages
         ],200);
     }
+    public function contactUsMessagesSeen($id)
+    {
+        $message = ContactUS::find($id);
+
+        if ($message) {
+            $message->seen = 1;
+            $message->save();  // Save the updated status to the database
+
+            return response()->json([
+                'message' => 'Seen status updated successfully'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Message not found',
+            ], 404);  // Return 404 for not found
+        }
+
+    }
 
 
     public function store(StoreArticleRequest  $request){
