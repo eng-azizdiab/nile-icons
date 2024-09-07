@@ -23,6 +23,7 @@ class ArticleResource extends JsonResource
             'user_name' => $this->user_name, // Add user_name attribute
             'image_url' => $this->image_url, // Add image_url attribute
             'category_title' => $this->category_title, // Add category_title attribute
+            'sub_articles' => SubArticleResource::collection($this->whenLoaded('subArticles')),
         ];
     }
 }

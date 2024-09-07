@@ -13,7 +13,7 @@ class ArticleController extends Controller
 {
     //
     public function store(StoreArticleRequest  $request){
-        $validated = $request->validated();
+       /* $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('articles', 'public');
@@ -24,9 +24,55 @@ class ArticleController extends Controller
 
         $article = Articles::create($validated);
 
+            foreach ($request->sub_articles as $sub_article) {
+                // Handle the image upload
+                // $imagePath = $subarticle['image']->store('partner_images', 'public');
+                $sub_article = collect($sub_article);
+
+                if ($sub_article->hasFile('image')) {
+                    $imagePath = $sub_article->file('image')->store('articles', 'public');
+                    $sub_article['image_path'] = $imagePath;
+
+                }
+                // Create the partner record
+                $article->sub_articles()->create($sub_article);
+            }
+*/
+        // Validate the request
+        $validated = $request->validated();
+
+        // Handle the main article image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('articles', 'public');
+            $validated['image_path'] = $imagePath;
+        }
+
+        // Set the authenticated user ID
+        $validated['user_id'] = auth()->id();
+
+        // Create the article
+        $article = Articles::create($validated);
+
+        // Handle the creation of sub_articles
+        if ($request->has('sub_articles')) {
+            foreach ($request->sub_articles as $sub_article) {
+                // Convert sub_article to a collection so you can easily check for file uploads
+                $sub_article = collect($sub_article);
+
+                // Handle the sub-article image upload if it exists
+                if ($sub_article->has('image') && $sub_article->get('image') instanceof \Illuminate\Http\UploadedFile) {
+                    $imagePath = $sub_article->get('image')->store('sub_articles', 'public');
+                    $sub_article['image_path'] = $imagePath;
+                }
+
+                // Create the sub_article
+                $article->subArticles()->create($sub_article->except('image')->toArray());
+            }
+        }
+
         return response()->json([
             'message' => 'Article created successfully',
-            'data' =>  new ArticleResource($article)
+            'data' =>  new ArticleResource($article->load('subArticles'))
         ], 201);
 
     }

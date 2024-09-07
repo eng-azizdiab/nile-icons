@@ -25,13 +25,17 @@ class Articles extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image_path? url('storage/' . $this->image_path):null ; // Adjust the URL to match your storage structure
+            return $this->image_path? url('storage/' . $this->image_path):null ; // Adjust the URL to match your storage structure
     }
     public function user(){
         return $this->belongsTo(User::class);
     }
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+    public function subArticles()
+    {
+        return $this->hasMany(SubArticles::class,'article_id');
     }
 
 }

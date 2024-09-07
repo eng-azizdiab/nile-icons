@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix'=>'public'],function (){
     Route::get('all-articles',[FrontEndController::class,'index']);
+    Route::get('all-articles/{id}',[FrontEndController::class,'article_details']);
     Route::get('all-categories',[FrontEndController::class,'all_categories']);
     Route::get('get-partner',[AttachmentsController::class, 'get_partner']);
     Route::get('get-reference',[AttachmentsController::class, 'get_reference']);

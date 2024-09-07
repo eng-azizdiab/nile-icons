@@ -27,6 +27,11 @@ class StoreArticleRequest extends FormRequest
             'image' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
             'visible' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
+            'sub_articles' => 'nullable|array',
+            'sub_articles.*.title' => 'required|string|max:255',
+            'sub_articles.*.description' => 'required|string',
+            'sub_articles.*.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sub_articles.*.image_position' => 'required|string|max:5',
         ];
     }
 
