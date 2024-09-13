@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePartnerRequest;
 use App\Http\Requests\StoreReferenceRequest;
 use App\Models\Partner;
+use App\Models\Partner2;
 use App\Models\Reference;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -57,6 +58,58 @@ class AttachmentsController extends Controller
     public function delete_partner($id)
     {
         $partner=Partner::find($id);
+
+        if ($partner){
+            $partner->delete();
+            return response()->json([
+                'message' => 'Deleted successfully.']);
+        }else{
+            return response()->json([
+                'message' => 'Partner not found.'
+            ]);
+        }
+
+    }
+    public function store_partner2(StorePartnerRequest $request)
+    {
+
+        foreach ($request->partners as $partnerData) {
+            // Handle the image upload
+           // $imagePath = $partnerData['image']->store('partner_images', 'public');
+
+            // Create the partner record
+           $partner= Partner2::create([
+                'name' => $partnerData['name'],
+            ]);
+           $partner->partner_file= $partnerData['image'];
+        }
+         //  dd($request);
+
+        return response()->json(['message' => 'Partners2 created successfully']);
+       /* dd($request->all());
+       $this->delete_Create_Directory(self::LOGOS);
+
+       if($this->pass_RequestFiles($request,self::LOGOS)){
+          return response()->json('uploaded successfully');
+       }else{
+           return response()->json('no files uploaded');
+       }*/
+
+    }
+    public function get_partner2()
+    {
+
+        //$fileUrls= $this->getAllFiles(self::LOGOS);
+        $partners = Partner2::all();
+        return response()->json([
+            'message' => 'Partners2 retrieved successfully.',
+            'files' => $partners
+        ], 200);
+    }
+
+    public function delete_partner2($id)
+    {
+        $partner=Partner2::find($id);
 
         if ($partner){
             $partner->delete();

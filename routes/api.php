@@ -32,6 +32,7 @@ Route::group(['prefix'=>'public'],function (){
     Route::get('all-articles/{id}',[FrontEndController::class,'article_details']);
     Route::get('all-categories',[FrontEndController::class,'all_categories']);
     Route::get('get-partner',[AttachmentsController::class, 'get_partner']);
+    Route::get('get-partner2',[AttachmentsController::class, 'get_partner2']);
     Route::get('get-reference',[AttachmentsController::class, 'get_reference']);
     Route::get('get-slider2',[AttachmentsController::class,'get_slider2']);
     Route::post('new-visitor',[FrontEndController::class,'new_visitor']);
@@ -50,6 +51,9 @@ Route::group(['prefix'=>'admin'],function (){
         Route::post('upload-partner',[AttachmentsController::class, 'store_partner']);
         Route::get('get-partner',[AttachmentsController::class, 'get_partner']);
         Route::get('delete-partner/{id}',[AttachmentsController::class, 'delete_partner']);
+        Route::post('upload-partner2',[AttachmentsController::class, 'store_partner2']);
+        Route::get('get-partner2',[AttachmentsController::class, 'get_partner2']);
+        Route::get('delete-partner2/{id}',[AttachmentsController::class, 'delete_partner2']);
         Route::post('upload-reference',[AttachmentsController::class, 'store_reference']);
         Route::get('get-reference',[AttachmentsController::class, 'get_reference']);
         Route::get('delete-reference/{id}',[AttachmentsController::class, 'delete_reference']);
