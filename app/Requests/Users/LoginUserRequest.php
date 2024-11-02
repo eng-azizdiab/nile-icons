@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\Requests\Users;
+namespace App\Requests\Users;
 use App\Requests\BaseRequestFormApi;
 
 class LoginUserRequest extends BaseRequestFormApi
